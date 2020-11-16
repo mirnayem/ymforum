@@ -8,4 +8,36 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
+
+    protected $fillable =['title','slug','body','category_id' , 'user_id'];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany('App\Models\Reply');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category');
+    }
+
+    public function like()
+    {
+        return $this->hasMany('App\Models\Like');
+    }
+
+    public function getPathAttribute()
+    {
+        return  asset("api/question/$this->slug");
+    }
 }
