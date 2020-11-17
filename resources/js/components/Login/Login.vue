@@ -40,11 +40,9 @@ export default {
        },
 
        methods: {
-           login(){
-               axios.post("/api/login" , this.form)
-               .then(res => console.log(res.data))
-               .catch(err => console.log(err.response.data))
-           }
+          login(){
+              User.login(this.form)
+          }
        }
 }
 </script>
