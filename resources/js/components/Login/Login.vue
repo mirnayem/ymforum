@@ -14,8 +14,12 @@
 
             <v-text-field
             v-model="form.password"
-            
+          
             label="Password"
+            :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="() => (value = !value)"
+            :type="value ? 'password' : 'text'"
+            
             required
             ></v-text-field>
             <v-btn 
@@ -24,6 +28,13 @@
             >
                 Login
             </v-btn>
+            <router-link
+             color="blue"
+             to="/signup">
+               <v-btn color="blue"> 
+                   Sign Up
+               </v-btn>
+            </router-link>
         </v-form>
     </v-container>
 </template>
@@ -35,13 +46,21 @@ export default {
                form: {
                    email: null,
                    password: null,
-               }
+               },
+                value: true,
+           }
+       },
+
+       created(){
+           if(User.loggedIn()){
+               this.$router.push({name:'forum'})
            }
        },
 
        methods: {
           login(){
               User.login(this.form)
+            
           }
        }
 }

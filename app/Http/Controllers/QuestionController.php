@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\QuestionResource;
+use Illuminate\Support\Str;
 
 class QuestionController extends Controller
 {
@@ -34,9 +35,9 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-      
-        Question::create($request->all());
-        return response('Created', Response::HTTP_CREATED);
+       
+        $question= auth()->user()->question()->create($request->all());
+        return response(new QuestionResource($question), Response::HTTP_CREATED);
     }
 
     /**

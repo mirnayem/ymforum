@@ -8,8 +8,9 @@ class AppStorage {
     }
 
     store(user, token){
-        this.storeUser(user)
         this.storeToken(token)
+        this.storeUser(user)
+       
         
     }
 
