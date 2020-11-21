@@ -9,35 +9,54 @@
             :data = question
          
             ></show-question>
-    
+         <replies
+         :question="question"
+         ></replies>
+         <v-spacer>
+             <new-reply :questionSlug="question.slug"></new-reply>
+         </v-spacer>
  </div>
 </template>
 
 <script>
 import ShowQuestion from './ShowQuestion'
 import EditQuestion from './EditQuestion'
+import Replies from '../Reply/Replies'
+import NewReply from '../Reply/NewReply'
 export default {
-    components: {ShowQuestion , EditQuestion},
+    components: {ShowQuestion , EditQuestion,Replies , NewReply},
+
     data() {
         return {
-            question: null,
-            editing : false
+            question:null,
+            editing : false,
+            beforeEditingTitle:'',
+            beforeEditingBody:'',
+
         }
     },
 
     created(){
-        this.listen()
-        this.getQuestion() 
+        
+       this.getQuestion() 
+       this.listen() 
     },
 
     methods: {
         listen(){
             EventBus.$on('startEditing' , ()=> {
-                return this.editing = true
+               this.editing = true
+               this.beforeEditingTitle = this.question.title
+               this.beforeEditingBody = this.question.body
             })
 
-            EventBus.$on('cancelEditing', ()=>{
-                return this.editing = false
+            EventBus.$on('cancelEditing', (data)=>{
+                 this.editing = false
+                 if(data !== this.question.title || this.question.body){
+                     this.question.title = this.beforeEditingTitle
+                     this.question.body = this.beforeEditingBody
+                     
+                 }
             })
         },
 

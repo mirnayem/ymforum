@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="mx-auto my-1 "
+    class="mx-auto mt-2"
   >
   <v-card-title>
     <div>

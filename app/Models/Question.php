@@ -12,6 +12,10 @@ class Question extends Model
 
     protected $fillable =['title','slug','body','category_id' , 'user_id'];
 
+    protected $with = ['replies'];
+
+
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -24,7 +28,7 @@ class Question extends Model
 
     public function replies()
     {
-        return $this->hasMany('App\Models\Reply');
+        return $this->hasMany('App\Models\Reply')->latest();
     }
 
     public function category()

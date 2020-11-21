@@ -1,7 +1,7 @@
 <template>
 <v-container fluid grid-list-md>
     <v-layout row wrap>
-        <v-flex xs8>
+        <v-flex sm8>
            <question
            v-for="question in questions"
            :key="question.path"
@@ -10,15 +10,18 @@
          
            </question>
         </v-flex>
-           Category Sidebar
+          <v-flex sm4>
+              <app-sidebar></app-sidebar>
+          </v-flex>
     </v-layout>
 </v-container>
 </template>
 
 <script>
 import Question from '../Forum/Question'
+import AppSidebar from '../Forum/AppSidebar'
 export default {
-   components: {Question},
+   components: {Question , AppSidebar},
 
      data() {
       return {
