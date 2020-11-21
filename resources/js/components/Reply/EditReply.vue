@@ -4,7 +4,7 @@
           <vue-simplemde v-model="reply.reply" ref="markdownEditor" />
             <v-card-actions>
                 <v-btn 
-               @click="updatereply"
+               @click="update"
                 class="mx-2"
                 fab
                 small
@@ -17,7 +17,7 @@
                 class="mx-2"
                 fab
                 small
-                @click="cancelreply"
+                @click="cancel"
                 ><v-icon
                 color="red"
                 >mdi-close</v-icon>
@@ -34,11 +34,11 @@ export default {
    
 
      methods:{
-         cancelreply(reply){
+         cancel(reply){
             EventBus.$emit('cancelEditing', reply)
          },
 
-         updatereply(reply){
+         update(reply){
            axios.patch(`/api/question/${this.reply.question_slug}/reply/${this.reply.id}`, {body: this.reply.reply})
            .then(res => {
                this.cancel(this.reply.reply)

@@ -30,8 +30,6 @@ export default {
         return {
             question:null,
             editing : false,
-            beforeEditingTitle:'',
-            beforeEditingBody:'',
 
         }
     },
@@ -46,23 +44,23 @@ export default {
         listen(){
             EventBus.$on('startEditing' , ()=> {
                this.editing = true
-               this.beforeEditingTitle = this.question.title
-               this.beforeEditingBody = this.question.body
-            })
+         
+            });
 
-            EventBus.$on('cancelEditing', (data)=>{
+            EventBus.$on('cancelEditing', ()=>{
                  this.editing = false
-                 if(data !== this.question.title || this.question.body){
-                     this.question.title = this.beforeEditingTitle
-                     this.question.body = this.beforeEditingBody
+                //  if(data !== this.question.title || this.question.body){
+                //      this.question.title = this.beforeEditingTitle
+                //      this.question.body = this.beforeEditingBody
                      
-                 }
+                //  }
             })
         },
 
         getQuestion(){
              axios.get(`/api/question/${this.$route.params.slug}`)
-        .then(res => this.question = res.data.data)
+            .then(res => this.question = res.data.data)
+
         }
     }
 }

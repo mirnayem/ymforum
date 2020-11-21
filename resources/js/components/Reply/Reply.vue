@@ -8,6 +8,10 @@
             <div class="pl-2 grey--text font-weight-light">
                said {{data.created_at}}
             </div>
+            <v-spacer></v-spacer>
+             <like
+             :content= data
+             > </like>
         </v-card-title>
 
         <edit-reply
@@ -16,7 +20,7 @@
          ></edit-reply>
 
         <v-card-text v-else v-html="reply"></v-card-text>
-
+       
         <v-divider></v-divider>
 
         <div v-if="!editing">
@@ -51,9 +55,10 @@
 
 <script>
 import EditReply from './EditReply'
+import Like from '../Likes/like'
 export default {
    props: ['data', 'index'],
-   components:{EditReply},
+   components:{EditReply , Like},
    data(){
        return{
            editing:false,
@@ -93,7 +98,7 @@ export default {
             {
 
               this.data.reply = this.beforeEditReplyBody
-              this.beforeEditReplyBody = ''
+
             }
         })
        }

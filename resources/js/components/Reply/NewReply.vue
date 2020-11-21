@@ -32,7 +32,7 @@ export default {
               .then(res => {
                   this.body = null
                   EventBus.$emit('newReply' , res.data.reply)
-                  window.scrollTo(0,0)
+           
   
               })
           }

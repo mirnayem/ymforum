@@ -3,7 +3,7 @@
       <v-card>
    
         <v-form
-          @submit.prevent="updatequestion"
+          @submit.prevent="update"
         >
               <v-text-field
               v-model="form.title"
@@ -28,7 +28,7 @@
                 class="mx-2"
                 fab
                 small
-                @click="cancelquestion"
+                @click="cancel"
                 ><v-icon
                 color="red"
                 >mdi-close</v-icon>
@@ -48,24 +48,22 @@ export default {
            return {
                form: {
                    title: null,
-                   body: null
+                   body: null,
                },
-
-              
            }
        },
 
 
 
        methods: {
-           cancelquestion(data){
-               EventBus.$emit('cancelEditing', data)
+           cancel(){
+               EventBus.$emit('cancelEditing')
            },
 
-           updatequestion(){
+           update(){
               
                axios.patch(`/api/question/${this.form.slug}` , this.form)
-               .then(res => this.cancel(this.data.title , this.data.body))
+               .then(res => this.cancel())
            }
        },
 

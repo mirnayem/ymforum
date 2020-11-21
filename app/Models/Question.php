@@ -53,4 +53,6 @@ class Question extends Model
            $question->slug = Str::slug($question->title);
         });
     }
+
+    
 }
