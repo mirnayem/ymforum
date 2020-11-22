@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\NotificationController;
 
 Route::apiResources([
     'question' => QuestionController::class,
@@ -15,7 +16,8 @@ Route::apiResources([
 Route::post('/like/{reply}', [LikeController::class , 'likeIt']);
 Route::delete('/like/{reply}', [LikeController::class , 'unlikeIt']);
 
-
+Route::post('/notifications' ,[NotificationController::class , 'index'] );
+Route::post('/markedAsRead', [NotificationController::class , 'markedAsRead']);
 
 Route::post('login', [AuthController::class , 'login']);
 

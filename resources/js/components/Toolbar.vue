@@ -5,14 +5,14 @@
       <v-toolbar-title>YMForum</v-toolbar-title>
 
       <v-spacer></v-spacer>
-
+      <app-notification v-show="loggedIn"></app-notification>
       <div class="hidden-sm-and-down">
     
          <router-link
          v-for="item in items"
          :key='item.title'
          :to="item.to"
-         v-if="item.show"
+         v-show="item.show"
        
          ><v-btn text>{{item.title}}</v-btn>
          </router-link>
@@ -23,9 +23,12 @@
 </template>
 
 <script>
+import AppNotification from './AppNotification'
 export default {
+  components : {AppNotification},
    data() {
      return {
+        loggedIn : User.loggedIn(),  
        items: [
           {title:'Forum', to:'/forum', show:true},
           {title:'Ask Question', to:'/ask',show:User.loggedIn()},

@@ -15,7 +15,7 @@
             </v-app>
         
          </div>
-         <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
+       
          <script src="{{asset('js/app.js')}}"></script>
         
     </body>
