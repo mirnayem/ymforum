@@ -5,7 +5,7 @@
       <v-toolbar-title>YMForum</v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <app-notification v-show="loggedIn"></app-notification>
+      <app-notification v-if="loggedIn" ></app-notification>
       <div class="hidden-sm-and-down">
     
          <router-link
@@ -28,7 +28,7 @@ export default {
   components : {AppNotification},
    data() {
      return {
-        loggedIn : User.loggedIn(),  
+       loggedIn : User.loggedIn(),  
        items: [
           {title:'Forum', to:'/forum', show:true},
           {title:'Ask Question', to:'/ask',show:User.loggedIn()},

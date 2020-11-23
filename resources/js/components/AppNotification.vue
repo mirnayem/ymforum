@@ -88,6 +88,13 @@
           if(User.loggedIn()){
               this.getNotifications()
           }
+
+
+           Echo.private('App.Models.User.' + User.id())
+        .notification((notification) => {
+            this.unreads.unshift(notification)
+            this.unreadsCount++
+        });
         
       }
   }
