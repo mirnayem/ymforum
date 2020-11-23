@@ -1,4 +1,7 @@
 <template>
+<v-container fluid>
+
+
  <div v-if="question">
      <edit-question 
      v-if="editing"
@@ -12,10 +15,18 @@
          <replies
          :question="question"
          ></replies>
-         <v-spacer>
-             <new-reply :questionSlug="question.slug"></new-reply>
-         </v-spacer>
+         <v-spacer> </v-spacer>
+
+         <new-reply :questionSlug="question.slug" v-if="loggedIn"></new-reply>
+
+         <div class="pl-4 mt-4" v-else >
+             <router-link to="/login">
+                 Log in to reply
+             </router-link>
+         </div>
+         
  </div>
+</v-container> 
 </template>
 
 <script>
@@ -38,6 +49,12 @@ export default {
         
        this.getQuestion() 
        this.listen() 
+    },
+
+    computed: {
+        loggedIn(){
+           return  User.loggedIn();
+        }
     },
 
     methods: {

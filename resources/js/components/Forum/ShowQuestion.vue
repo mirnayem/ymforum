@@ -14,7 +14,7 @@
         </div>
 
         <v-spacer></v-spacer>
-        <v-btn color="indigo" class="white--text">{{data.replies_count}}  Replies</v-btn>
+        <v-btn color="indigo" class="white--text"> {{replyCount}} Replies </v-btn>
       </v-card-title>
 
       <v-card-text v-html="body"></v-card-text>
@@ -52,6 +52,7 @@ export default {
   data() {
       return {
           own : User.own(this.data.user_id),
+          replyCount: this.data.replies_count,
       }
   },
 
@@ -61,6 +62,26 @@ export default {
        body(){
            return md.parse(this.data.body)
        }
+   },
+
+   created(){
+       EventBus.$on('newReply' , ()=> {
+         this.replyCount++
+       })
+
+        EventBus.$on('deleteReply' , ()=> {
+         this.replyCount--
+       })
+
+         Echo.private('App.Models.User.' + User.id())
+        .notification((notification) => {
+            this.replyCount++
+        });
+
+        Echo.channel('deleteReplyChannel')
+        .listen('DeleteReplyEvent', (e)=> {
+            this.replyCount--
+        })
    },
 
    methods: {

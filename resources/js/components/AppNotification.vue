@@ -70,6 +70,7 @@
 
                  
               })
+              .catch(error => Exception.handle(error))
 
            
           },

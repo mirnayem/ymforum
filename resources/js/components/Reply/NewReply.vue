@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mt-4" fluid>
+  <v-container class="mt-4" fluid >
       <vue-simplemde v-model="body" ref="markdownEditor" />
 
             <v-btn 
@@ -21,7 +21,9 @@ export default {
 
      props: ['questionSlug'],
       data(){
+          
           return{
+             
               body: null
           }
       },
@@ -32,7 +34,7 @@ export default {
               .then(res => {
                   this.body = null
                   EventBus.$emit('newReply' , res.data.reply)
-           
+                  window.scrollTo(0,0)
   
               })
           }
