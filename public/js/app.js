@@ -2510,6 +2510,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       questions: {},
+      totalPage: null,
       meta: {}
     };
   },
@@ -2520,15 +2521,16 @@ __webpack_require__.r(__webpack_exports__);
     fetchQuestions: function fetchQuestions(page) {
       var _this = this;
 
-      var url = page ? "/api/question/?page=".concat(page) : '/api/question';
+      var url = page ? "/api/question?page=".concat(page) : '/api/question';
       axios.get(url).then(function (res) {
         _this.questions = res.data.data;
         _this.meta = res.data.meta;
+        _this.totalPage = res.data.meta.total / res.data.meta.per_page;
       })["catch"](function (err) {
         return err.response.data;
       });
     },
-    pageChange: function pageChange(page) {
+    changePage: function changePage(page) {
       this.fetchQuestions(page);
     }
   }
@@ -64511,8 +64513,8 @@ var render = function() {
                 { staticClass: "text-center mt-4 pt-5" },
                 [
                   _c("v-pagination", {
-                    attrs: { length: _vm.meta.total },
-                    on: { input: _vm.pageChange },
+                    attrs: { length: _vm.totalPage },
+                    on: { input: _vm.changePage },
                     model: {
                       value: _vm.meta.current_page,
                       callback: function($$v) {

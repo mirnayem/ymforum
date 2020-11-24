@@ -13,8 +13,8 @@
            <div class="text-center mt-4 pt-5">
             <v-pagination
              v-model="meta.current_page"
-            :length="meta.total"
-            @input = "pageChange"
+            :length="totalPage"
+            @input = "changePage"
             ></v-pagination>
           </div>
         </v-flex>
@@ -34,7 +34,7 @@ export default {
      data() {
       return {
           questions : {},
-
+          totalPage : null,
           meta : {}
       }
   },
@@ -46,15 +46,16 @@ export default {
   methods: {
     
     fetchQuestions(page){
-        let url = page ? `/api/question/?page=${page}` : '/api/question'
+        let url = page ? `/api/question?page=${page}` : '/api/question'
          axios.get(url)
       .then(res => {
           this.questions = res.data.data
           this.meta = res.data.meta
+          this.totalPage = res.data.meta.total / res.data.meta.per_page
       })
       .catch(err => err.response.data)
       },
-      pageChange(page){
+      changePage(page){
        this.fetchQuestions(page)
       }
   }
