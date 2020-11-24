@@ -8,6 +8,7 @@
             <v-text-field
             v-model="form.email"
             label="E-mail"
+            type="email"
             required
             ></v-text-field>
 
@@ -25,6 +26,7 @@
             <v-btn 
             color="green"
             type="submit"
+            :disabled="disabled"
             >
                 Login
             </v-btn>
@@ -46,6 +48,7 @@ export default {
                form: {
                    email: null,
                    password: null,
+                
                },
                 value: true,
            }
@@ -62,6 +65,12 @@ export default {
               User.login(this.form)
             
           }
+       },
+
+       computed: {
+           disabled(){
+               return !(this.form.email && this.form.password)
+           }
        }
 }
 </script>

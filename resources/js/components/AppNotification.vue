@@ -49,7 +49,8 @@
           return{
             reads: {},
             unreads: {},
-            unreadsCount: 0
+            unreadsCount: 0,
+            sound: 'http://freesoundeffect.net/sites/default/files/marimba-app-pop-up-sound-effect-5670167.mp3'
           }
       },
      
@@ -58,9 +59,31 @@
          return this.unreadsCount > 0 ? 'red' : 'red lighten-4'
         }
      },
+
+      created(){
+          if(User.loggedIn()){
+              this.getNotifications()
+          }
+
+
+           Echo.private('App.Models.User.' + User.id())
+        .notification((notification) => {
+            this.playSound()
+            this.unreads.unshift(notification)
+            this.unreadsCount++
+        });
+        
+      },
    
 
       methods: {
+
+   
+          playSound(){
+            let audioFile = new Audio(this.sound)
+            audioFile.play()
+          },
+
           getNotifications(){
               axios.post('/api/notifications')
               .then(res => {
@@ -83,21 +106,9 @@
               this.unreadsCount--
             })
           }
-      },
-
-         created(){
-          if(User.loggedIn()){
-              this.getNotifications()
-          }
-
-
-           Echo.private('App.Models.User.' + User.id())
-        .notification((notification) => {
-            this.unreads.unshift(notification)
-            this.unreadsCount++
-        });
-        
       }
+
+        
   }
 </script>
 

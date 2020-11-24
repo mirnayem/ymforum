@@ -1,7 +1,17 @@
 <template>
     <v-container>
 
-   
+       <v-alert
+      dense
+      outlined
+      type="error"
+      :value = "true"
+      v-show="errors"
+      v-for="err in errors"
+      :key= err.id
+    >
+     {{err}}
+    </v-alert>
         <v-form
           @submit.prevent="submit"
         >
@@ -15,12 +25,14 @@
               <v-btn 
             color="orange"
             type="submit"
+            
             v-if="editSlug"
             >
               Update
             </v-btn>
             <v-btn 
             color="green"
+           
             type="submit"
             v-else
             >
@@ -51,6 +63,7 @@
                <v-list-item-title>{{category.name}}</v-list-item-title>
                  <v-icon
                  color="red"
+
                  @click="destroy(category.slug ,index)"
                  > mdi-delete </v-icon>
             </v-list-item>
@@ -69,7 +82,7 @@ export default {
                },
                categories: {},
                editSlug:null,
-               
+               errors:null,
            }
        },
 
@@ -96,6 +109,7 @@ export default {
                this.categories.unshift(res.data)
                this.form.name = null
                })
+               .catch(error => this.errors = error.response.data.errors.name)
         },
 
           update(){
@@ -116,6 +130,12 @@ export default {
            this.editSlug = this.categories[index].slug
            this.categories.splice(index ,1)
         }
+       },
+
+       computed: {
+        //  disabled(){
+        //    return !this.form.name 
+        //  }
        }
 }
 </script>

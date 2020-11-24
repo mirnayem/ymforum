@@ -42,9 +42,12 @@ window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: "bf891fdaf30199dba2e2",
-    cluster: "ap1",
-    forceTLS: true,
+    key: 'myKey',
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    disableStats: true,
+    encrypted: false,
+    forceTLS: false,  
     auth: {
         headers: {
             Authorization: token
