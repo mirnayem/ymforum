@@ -2492,6 +2492,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2501,17 +2509,28 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      questions: {}
+      questions: {},
+      meta: {}
     };
   },
   created: function created() {
-    var _this = this;
+    this.fetchQuestions();
+  },
+  methods: {
+    fetchQuestions: function fetchQuestions(page) {
+      var _this = this;
 
-    axios.get('/api/question').then(function (res) {
-      return _this.questions = res.data.data;
-    })["catch"](function (err) {
-      return err.response.data;
-    });
+      var url = page ? "/api/question/?page=".concat(page) : '/api/question';
+      axios.get(url).then(function (res) {
+        _this.questions = res.data.data;
+        _this.meta = res.data.meta;
+      })["catch"](function (err) {
+        return err.response.data;
+      });
+    },
+    pageChange: function pageChange(page) {
+      this.fetchQuestions(page);
+    }
   }
 });
 
@@ -64479,13 +64498,34 @@ var render = function() {
           _c(
             "v-flex",
             { attrs: { sm8: "" } },
-            _vm._l(_vm.questions, function(question) {
-              return _c("question", {
-                key: question.path,
-                attrs: { question: question }
-              })
-            }),
-            1
+            [
+              _vm._l(_vm.questions, function(question) {
+                return _c("question", {
+                  key: question.path,
+                  attrs: { question: question }
+                })
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "text-center mt-4 pt-5" },
+                [
+                  _c("v-pagination", {
+                    attrs: { length: _vm.meta.total },
+                    on: { input: _vm.pageChange },
+                    model: {
+                      value: _vm.meta.current_page,
+                      callback: function($$v) {
+                        _vm.$set(_vm.meta, "current_page", $$v)
+                      },
+                      expression: "meta.current_page"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            2
           ),
           _vm._v(" "),
           _c("v-flex", { attrs: { sm4: "" } }, [_c("app-sidebar")], 1)
@@ -64532,8 +64572,13 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("p", { staticClass: "grey--text" }, [
-              _vm._v(_vm._s(_vm.question.created_at))
+            _c("v-spacer"),
+            _vm._v(" "),
+            _c("p", { staticClass: "pt-4" }, [
+              _vm._v("By " + _vm._s(_vm.question.user) + " "),
+              _c("span", { staticClass: "grey--text text-weight-thin" }, [
+                _vm._v(" " + _vm._s(_vm.question.created_at) + " ")
+              ])
             ])
           ],
           1
@@ -124835,7 +124880,7 @@ var User = /*#__PURE__*/function () {
   }, {
     key: "admin",
     value: function admin() {
-      return this.id() == 11;
+      return this.id() == 1;
     }
   }]);
 

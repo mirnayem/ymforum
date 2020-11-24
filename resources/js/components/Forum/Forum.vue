@@ -9,6 +9,14 @@
            >
          
            </question>
+
+           <div class="text-center mt-4 pt-5">
+            <v-pagination
+             v-model="meta.current_page"
+            :length="meta.total"
+            @input = "pageChange"
+            ></v-pagination>
+          </div>
         </v-flex>
           <v-flex sm4>
               <app-sidebar></app-sidebar>
@@ -25,14 +33,30 @@ export default {
 
      data() {
       return {
-          questions : {}
+          questions : {},
+
+          meta : {}
       }
   },
 
   created(){
-      axios.get('/api/question')
-      .then(res => this.questions = res.data.data)
+     this.fetchQuestions()
+  },
+
+  methods: {
+    
+    fetchQuestions(page){
+        let url = page ? `/api/question/?page=${page}` : '/api/question'
+         axios.get(url)
+      .then(res => {
+          this.questions = res.data.data
+          this.meta = res.data.meta
+      })
       .catch(err => err.response.data)
+      },
+      pageChange(page){
+       this.fetchQuestions(page)
+      }
   }
 }
 </script>

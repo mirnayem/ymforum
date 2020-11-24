@@ -7,8 +7,8 @@
         <router-link :to="question.path">
             <h3 class="black--text">{{question.title}}</h3>
         </router-link>
-       
-             <p class="grey--text">{{question.created_at}}</p>
+        <v-spacer></v-spacer>
+            <p class="pt-4">By {{question.user}} <span class="grey--text text-weight-thin"> {{question.created_at}} </span> </p>
     </div>
 
   </v-card-title>
