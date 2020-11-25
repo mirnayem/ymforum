@@ -1,7 +1,7 @@
 <template>
   <v-parallax
     dark
-    src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+    src="https://images.pexels.com/photos/924824/pexels-photo-924824.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
     height="1000"
   >
     <v-row
@@ -12,10 +12,10 @@
         class="text-center"
         cols="12"
       >
-        <h1 class="display-4 font-weight-bold mb-4">
+        <h1 class="white--text display-4 font-weight-bold mb-4">
           YMForum
         </h1>
-        <h4 class="headline">
+        <h4 class=" white--text headline">
           Drop Your Question Here For Best Solution
         </h4>
       </v-col>

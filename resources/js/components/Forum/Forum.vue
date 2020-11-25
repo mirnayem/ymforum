@@ -14,6 +14,8 @@
             <v-pagination
              v-model="meta.current_page"
             :length="totalPage"
+            :total-visible="7" 
+            color="indigo"
             @input = "changePage"
             ></v-pagination>
           </div>
@@ -51,7 +53,7 @@ export default {
       .then(res => {
           this.questions = res.data.data
           this.meta = res.data.meta
-          this.totalPage = res.data.meta.total / res.data.meta.per_page
+          this.totalPage = Math.ceil(res.data.meta.total / res.data.meta.per_page)
       })
       .catch(err => err.response.data)
       },

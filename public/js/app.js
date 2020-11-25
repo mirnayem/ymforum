@@ -1928,22 +1928,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      links: ['Home', 'About Us', 'Team', 'Services', 'Blog', 'Contact Us']
-    };
-  }
-});
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 
@@ -1959,7 +1944,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Toolbar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Toolbar */ "./resources/js/components/Toolbar.vue");
 /* harmony import */ var _AppFooter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AppFooter */ "./resources/js/components/AppFooter.vue");
 /* harmony import */ var _Login_Login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Login/Login */ "./resources/js/components/Login/Login.vue");
-//
 //
 //
 //
@@ -2500,6 +2484,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2525,7 +2511,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(url).then(function (res) {
         _this.questions = res.data.data;
         _this.meta = res.data.meta;
-        _this.totalPage = res.data.meta.total / res.data.meta.per_page;
+        _this.totalPage = Math.ceil(res.data.meta.total / res.data.meta.per_page);
       })["catch"](function (err) {
         return err.response.data;
       });
@@ -3433,6 +3419,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3461,13 +3489,20 @@ __webpack_require__.r(__webpack_exports__);
         title: 'Logout',
         to: '/logout',
         show: User.loggedIn()
-      }]
+      }],
+      drawer: false,
+      group: null
     };
   },
   created: function created() {
     EventBus.$on('logout', function () {
       User.logout();
     });
+  },
+  watch: {
+    group: function group() {
+      this.drawer = false;
+    }
   }
 });
 
@@ -63893,22 +63928,10 @@ var render = function() {
         "v-row",
         { attrs: { justify: "center", "no-gutters": "" } },
         [
-          _vm._l(_vm.links, function(link) {
-            return _c(
-              "v-btn",
-              {
-                key: link,
-                staticClass: "my-2",
-                attrs: { color: "white", text: "", rounded: "" }
-              },
-              [_vm._v("\n      " + _vm._s(link) + "\n    ")]
-            )
-          }),
-          _vm._v(" "),
           _c(
             "v-col",
             {
-              staticClass: "black py-4 text-center white--text",
+              staticClass: "indigo py-4 text-center white--text",
               attrs: { cols: "12" }
             },
             [
@@ -63917,7 +63940,7 @@ var render = function() {
             ]
           )
         ],
-        2
+        1
       )
     ],
     1
@@ -64088,6 +64111,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
+    { attrs: { fluid: "" } },
     [
       _vm._l(_vm.errors, function(err) {
         return _c(
@@ -64513,7 +64537,11 @@ var render = function() {
                 { staticClass: "text-center mt-4 pt-5" },
                 [
                   _c("v-pagination", {
-                    attrs: { length: _vm.totalPage },
+                    attrs: {
+                      length: _vm.totalPage,
+                      "total-visible": 7,
+                      color: "indigo"
+                    },
                     on: { input: _vm.changePage },
                     model: {
                       value: _vm.meta.current_page,
@@ -65077,7 +65105,8 @@ var render = function() {
     {
       attrs: {
         dark: "",
-        src: "https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg",
+        src:
+          "https://images.pexels.com/photos/924824/pexels-photo-924824.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
         height: "1000"
       }
     },
@@ -65087,11 +65116,13 @@ var render = function() {
         { attrs: { align: "center", justify: "center" } },
         [
           _c("v-col", { staticClass: "text-center", attrs: { cols: "12" } }, [
-            _c("h1", { staticClass: "display-4 font-weight-bold mb-4" }, [
-              _vm._v("\n        YMForum\n      ")
-            ]),
+            _c(
+              "h1",
+              { staticClass: "white--text display-4 font-weight-bold mb-4" },
+              [_vm._v("\n        YMForum\n      ")]
+            ),
             _vm._v(" "),
-            _c("h4", { staticClass: "headline" }, [
+            _c("h4", { staticClass: " white--text headline" }, [
               _vm._v(
                 "\n        Drop Your Question Here For Best Solution\n      "
               )
@@ -65422,7 +65453,10 @@ var render = function() {
             [
               _c(
                 "router-link",
-                { staticClass: "white--text", attrs: { to: "/" } },
+                {
+                  staticClass: "white--text text-decoration-none headline",
+                  attrs: { to: "/" }
+                },
                 [_vm._v("\n         YMForum\n       ")]
               )
             ],
@@ -65459,6 +65493,92 @@ var render = function() {
                 1
               )
             }),
+            1
+          ),
+          _vm._v(" "),
+          _c("v-app-bar-nav-icon", {
+            staticClass: "d-md-none",
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+                _vm.drawer = !_vm.drawer
+              }
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-navigation-drawer",
+        {
+          attrs: { absolute: "", right: "", temporary: "" },
+          model: {
+            value: _vm.drawer,
+            callback: function($$v) {
+              _vm.drawer = $$v
+            },
+            expression: "drawer"
+          }
+        },
+        [
+          _c(
+            "v-list",
+            { attrs: { nav: "" } },
+            [
+              _c(
+                "v-list-item-group",
+                {
+                  model: {
+                    value: _vm.group,
+                    callback: function($$v) {
+                      _vm.group = $$v
+                    },
+                    expression: "group"
+                  }
+                },
+                _vm._l(_vm.items, function(item) {
+                  return _c(
+                    "v-list-item",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: item.show,
+                          expression: "item.show"
+                        }
+                      ],
+                      key: item.title
+                    },
+                    [
+                      _c(
+                        "v-list-item-title",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "text-decoration-none indigo--text",
+                              attrs: { to: item.to }
+                            },
+                            [
+                              _vm._v(
+                                "\n               " +
+                                  _vm._s(item.title) +
+                                  "\n              "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                }),
+                1
+              )
+            ],
             1
           )
         ],

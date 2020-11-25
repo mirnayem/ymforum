@@ -6,7 +6,9 @@
 
       <v-toolbar-title>
         
-       <router-link class="white--text" to="/">
+       <router-link 
+       class="white--text text-decoration-none headline"
+       to="/">
          YMForum
        </router-link>
         
@@ -26,7 +28,47 @@
          </router-link>
        
        </div>
+
+       <v-app-bar-nav-icon 
+       class="d-md-none"
+       @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        
+
     </v-toolbar>
+  
+<v-navigation-drawer
+      v-model="drawer"
+      absolute
+      right
+      temporary
+    >
+    <v-list
+        nav
+      >
+        <v-list-item-group
+          v-model="group"
+          
+        >
+          <v-list-item
+          
+         v-for="item in items"
+         :key='item.title'
+          v-show="item.show"
+         >
+            <v-list-item-title>
+              <router-link 
+              :to="item.to"
+              class="text-decoration-none indigo--text"
+             
+              >
+               {{item.title}}
+              </router-link>
+            </v-list-item-title>
+          </v-list-item>
+
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
 
  
 
@@ -47,7 +89,9 @@ export default {
           {title:'Category', to:'/category',show:User.admin()},
           {title:'Login', to:'/login',show:!User.loggedIn()},
           {title:'Logout', to:'/logout',show:User.loggedIn()},
-       ]
+       ],
+       drawer : false,
+       group : null
      }
    },
 
@@ -55,7 +99,13 @@ export default {
      EventBus.$on('logout' ,  ()=> {
         User.logout()
      })
-   }
+   },
+
+      watch: {
+      group () {
+        this.drawer = false
+      },
+    },
 }
 </script>
 
