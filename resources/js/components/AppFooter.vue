@@ -1,7 +1,9 @@
 <template>
-    <v-footer
+  <div>
+      <v-footer
     color="grey"
     padless
+    
   >
     <v-row
       justify="center"
@@ -16,11 +18,12 @@
       </v-col>
     </v-row>
   </v-footer>
+  </div>
 </template>
 
 <script>
   export default {
-
+      
   }
 </script>
 

@@ -1,6 +1,7 @@
 <template>
   <v-card
     class="mx-auto mt-2"
+    data-aos="fade-up" data-aos-duration="300"
   >
   <v-card-title>
     <div>

@@ -20,7 +20,7 @@
             ></v-pagination>
           </div>
         </v-flex>
-          <v-flex sm4>
+          <v-flex sm4 data-aos="zoom-in" data-aos-duration="400">
               <app-sidebar></app-sidebar>
           </v-flex>
     </v-layout>

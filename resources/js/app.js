@@ -29,7 +29,8 @@ window.Exception = Exception
 
 window.EventBus = new Vue()
 
-
+import AOS from 'aos';
+AOS.init();
 
 /**
  * The following block of code may be used to automatically register your
